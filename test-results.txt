@@ -1,3 +1,5 @@
+SKIPPED after 5 attempts
+
 FAIL ./app.test.js
   ● Test suite failed to run
 
@@ -13,4 +15,126 @@ FAIL ./app.test.js
      • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
      • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
      • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
-     • If you need a custom transformation specify a "transform" option in yo
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    SyntaxError: C:\Users\Dell\zero-touch-pipeline\workspace\KAN-12\app.test.js: Unterminated string constant. (38:2782)
+
+    [0m [90m 36 |[39m
+     [90m 37 |[39m   test([32m'add button is enabled when input has text'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 38 |[39m     [36mclass[39m [33mTodoApp[39m { constructor() { [36mthis[39m[33m.[39mtodos [33m=[39m [36mthis[39m[33m.[39mloadTodos()[33m;[39m [36mthis[39m[33m.[39mtodoInput [33m=[39m globalMock[33m.[39mdocument[33m.[39mgetElementById([32m'todoInput'[39m)[33m;[39m [36mthis[39m[33m.[39maddBtn [33m=[39m globalMock[33m.[39mdocument[33m.[39mgetElementById([32m'addBtn'[39m)[33m;[39m [36mthis[39m[33m.[39mtodoList [33m=[39m globalMock[33m.[39mdocument[33m.[39mgetElementById([32m'todoList'[39m)[33m;[39m [36mthis[39m[33m.[39mitemCount [33m=[39m globalMock[33m.[39mdocument[33m.[39mgetElementById([32m'itemCount'[39m)[33m;[39m [36mthis[39m[33m.[39memptyState [33m=[39m globalMock[33m.[39mdocument[33m.[39mgetElementById([32m'emptyState'[39m)[33m;[39m [36mthis[39m[33m.[39minit()[33m;[39m } init() { [36mthis[39m[33m.[39maddBtn[33m.[39maddEventListener([32m'click'[39m[33m,[39m () [33m=>[39m [36mthis[39m[33m.[39maddTodo())[33m;[39m [36mthis[39m[33m.[39mtodoInput[33m.[39maddEventListener([32m'keypress'[39m[33m,[39m (e) [33m=>[39m { [36mif[39m (e[33m.[39mkey [33m===[39m [32m'Enter'[39m) [36mthis[39m[33m.[39maddTodo()[33m;[39m })[33m;[39m [36mthis[39m[33m.[39mtodoInput[33m.[39maddEventListener([32m'input'[39m[33m,[39m () [33m=>[39m [36mthis[39m[33m.[39mupdateAddButton())[33m;[39m [36mthis[39m[33m.[39mrender()[33m;[39m [36mthis[39m[33m.[39mupdateAddButton()[33m;[39m } addTodo() { [36mconst[39m text [33m=[39m [36mthis[39m[33m.[39mtodoInput[33m.[39mvalue[33m.[39mtrim()[33m;[39m [36mif[39m ([33m![39mtext) [36mreturn[39m[33m;[39m [36mconst[39m todo [33m=[39m { id[33m:[39m [33mDate[39m[33m.[39mnow() [33m+[39m [33mMath[39m[33m.[39mrandom()[33m,[39m text[33m:[39m text[33m,[39m completed[33m:[39m [36mfalse[39m[33m,[39m createdAt[33m:[39m [36mnew[39m [33mDate[39m()[33m.[39mtoISOString() }[33m;[39m [36mthis[39m[33m.[39mtodos[33m.[39mpush(todo)[33m;[39m [36mthis[39m[33m.[39mtodoInput[33m.[39mvalue [33m=[39m [32m''[39m[33m;[39m [36mthis[39m[33m.[39msaveTodos()[33m;[39m [36mthis[39m[33m.[39mrender()[33m;[39m [36mthis[39m[33m.[39mupdateAddButton()[33m;[39m } toggleTodo(id) { [36mconst[39m todo [33m=[39m [36mthis[39m[33m.[39mtodos[33m.[39mfind(t [33m=>[39m t[33m.[39mid [33m===[39m id)[33m;[39m [36mif[39m (todo) { todo[33m.[39mcompleted [33m=[39m [33m![39mtodo[33m.[39mcompleted[33m;[39m [36mthis[39m[33m.[39msaveTodos()[33m;[39m [36mthis[39m[33m.[39mrender()[33m;[39m } } deleteTodo(id) { [36mthis[39m[33m.[39mtodos [33m=[39m [36mthis[39m[33m.[39mtodos[33m.[39mfilter(t [33m=>[39m t[33m.[39mid [33m!==[39m id)[33m;[39m [36mthis[39m[33m.[39msaveTodos()[33m;[39m [36mthis[39m[33m.[39mrender()[33m;[39m } updateAddButton() { [36mconst[39m hasText [33m=[39m [36mthis[39m[33m.[39mtodoInput[33m.[39mvalue[33m.[39mtrim()[33m.[39mlength [33m>[39m [35m0[39m[33m;[39m [36mthis[39m[33m.[39maddBtn[33m.[39mdisabled [33m=[39m [33m![39mhasText[33m;[39m } render() { [36mthis[39m[33m.[39mrenderTodos()[33m;[39m [36mthis[39m[33m.[39mupdateItemCount()[33m;[39m } renderTodos() { [36mif[39m ([36mthis[39m[33m.[39mtodos[33m.[39mlength [33m===[39m [35m0[39m) { [36mthis[39m[33m.[39mtodoList[33m.[39minnerHTML [33m=[39m [32m'<div class="empty-state">No todos yet. Add one above!</div>'[39m[33m;[39m [36mreturn[39m[33m;[39m } [36mconst[39m todosHtml [33m=[39m [36mthis[39m[33m.[39mtodos[33m.[39mmap(todo [33m=>[39m [32m`<div class="todo-item ${todo.completed ? 'completed' : ''}"><input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} onchange="app.toggleTodo(${todo.id})"><span class="todo-text">${this.escapeHtml(todo.text)}</span><button class="delete-btn" onclick="app.deleteTodo(${todo.id})">Delete</button></div>`[39m)[33m.[39mjoin([32m''[39m)[33m;[39m [36mthis[39m[33m.[39mtodoList[33m.[39minnerHTML [33m=[39m todosHtml[33m;[39m } updateItemCount() { [36mconst[39m remaining [33m=[39m [36mthis[39m[33m.[39mtodos[33m.[39mfilter(t [33m=>[39m [33m![39mt[33m.[39mcompleted)[33m.[39mlength[33m;[39m [36mconst[39m total [33m=[39m [36mthis[39m[33m.[39mtodos[33m.[39mlength[33m;[39m [36mif[39m (total [33m===[39m [35m0[39m) { [36mthis[39m[33m.[39mitemCount[33m.[39mtextContent [33m=[39m [32m'No items'[39m[33m;[39m } [36melse[39m [36mif[39m (remaining [33m===[39m [35m0[39m) { [36mthis[39m[33m.[39mitemCount[33m.[39mtextContent [33m=[39m [32m'All items completed! 🎉'[39m[33m;[39m } [36melse[39m { [36mthis[39m[33m.[39mitemCount[33m.[39mtextContent [33m=[39m [32m`${remaining} item${remaining !== 1 ? 's' : ''} remaining`[39m[33m;[39m } } escapeHtml(text) { [36mconst[39m div [33m=[39m globalMock[33m.[39mdocument[33m.[39mcreateElement([32m'div'[39m)[33m;[39m div[33m.[39mtextContent [33m=[39m text[33m;[39m [36mreturn[39m div[33m.[39minnerHTML[33m;[39m } saveTodos() { [36mtry[39m { globalMock[33m.[39mlocalStorage[33m.[39msetItem([32m'todos'[39m[33m,[39m [33mJSON[39m[33m.[39mstringify([36mthis[39m[33m.[39mtodos))[33m;[39m } [36mcatch[39m (e) { globalMock[33m.[39mconsole[33m.[39mwarn([32m'Could not save todos to localStorage:'[39m[33m,[39m e)[33m;[39m } } loadTodos() { [36mtry[39m { [36mconst[39m stored [33m=[39m globalMock[33m.[39mlocalStorage[33m.[39mgetItem([32m'todos'[39m)[33m;[39m [36mreturn[39m stored [33m?[39m [33mJSON[39m[33m.[39mparse(stored) [33m:[39m [][33m;[39m } [36mcatch[39m (e) { globalMock[33m.[39mconsole[33m.[39mwarn([32m'Could not load todos from localStorage[39m
+     [90m    |[39m                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               [31m[1m^[22m[39m[0m
+
+      at constructor (node_modules/@babel/parser/src/parse-error.ts:95:45)
+      at Parser.toParseError [as raise] (node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+      at Object.raise [as unterminated] (node_modules/@babel/parser/src/tokenizer/index.ts:1614:18)
+      at unterminated (node_modules/@babel/babel-helper-string-parser/src/index.ts:69:14)
+      at Parser.readStringContents [as readString] (node_modules/@babel/parser/src/tokenizer/index.ts:1337:46)
+      at Parser.readString [as getTokenFromCode] (node_modules/@babel/parser/src/tokenizer/index.ts:992:14)
+      at Parser.getTokenFromCode [as nextToken] (node_modules/@babel/parser/src/tokenizer/index.ts:279:10)
+      at Parser.nextToken [as next] (node_modules/@babel/parser/src/tokenizer/index.ts:122:10)
+      at Parser.next [as parseCoverCallAndAsyncArrowHead] (node_modules/@babel/parser/src/parser/expression.ts:902:10)
+      at Parser.parseCoverCallAndAsyncArrowHead [as parseSubscript] (node_modules/@babel/parser/src/parser/expression.ts:804:19)
+      at Parser.parseSubscript [as parseSubscripts] (node_modules/@babel/parser/src/parser/expression.ts:763:19)
+      at Parser.parseSubscripts [as parseExprSubscripts] (node_modules/@babel/parser/src/parser/expression.ts:748:17)
+      at Parser.parseExprSubscripts [as parseUpdate] (node_modules/@babel/parser/src/parser/expression.ts:721:21)
+      at Parser.parseUpdate [as parseMaybeUnary] (node_modules/@babel/parser/src/parser/expression.ts:683:23)
+      at Parser.parseMaybeUnary [as parseMaybeUnaryOrPrivate] (node_modules/@babel/parser/src/parser/expression.ts:417:14)
+      at Parser.parseMaybeUnaryOrPrivate [as parseExprOps] (node_modules/@babel/parser/src/parser/expression.ts:429:23)
+      at Parser.parseExprOps [as parseMaybeConditional] (node_modules/@babel/parser/src/parser/expression.ts:384:23)
+      at Parser.parseMaybeConditional [as parseMaybeAssign] (node_modules/@babel/parser/src/parser/expression.ts:301:21)
+      at Parser.parseMaybeAssign [as parseExpressionBase] (node_modules/@babel/parser/src/parser/expression.ts:226:23)
+      at parseExpressionBase (node_modules/@babel/parser/src/parser/expression.ts:217:39)
+      at Parser.callback [as allowInAnd] (node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+      at Parser.allowInAnd [as parseExpression] (node_modules/@babel/parser/src/parser/expression.ts:217:17)
+      at Parser.parseExpression [as parseStatementContent] (node_modules/@babel/parser/src/parser/statement.ts:688:23)
+      at Parser.parseStatementContent [as parseStatementLike] (node_modules/@babel/parser/src/parser/statement.ts:482:17)
+      at Parser.parseStatementLike [as parseStatementListItem] (node_modules/@babel/parser/src/parser/statement.ts:431:17)
+      at Parser.parseStatementListItem [as parseBlockOrModuleBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+      at Parser.parseBlockOrModuleBlockBody [as parseBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+      at Parser.parseBlockBody [as parseBlock] (node_modules/@babel/parser/src/parser/statement.ts:1385:10)
+      at parseBlock (node_modules/@babel/parser/src/parser/statement.ts:1226:16)
+      at Parser.callback [as withSmartMixTopicForbiddingContext] (node_modules/@babel/parser/src/parser/expression.ts:3171:14)
+      at Parser.withSmartMixTopicForbiddingContext [as parseTryStatement] (node_modules/@babel/parser/src/parser/statement.ts:1224:14)
+      at Parser.parseTryStatement [as parseStatementContent] (node_modules/@babel/parser/src/parser/statement.ts:549:21)
+      at Parser.parseStatementContent [as parseStatementLike] (node_modules/@babel/parser/src/parser/statement.ts:482:17)
+      at Parser.parseStatementLike [as parseStatementListItem] (node_modules/@babel/parser/src/parser/statement.ts:431:17)
+      at Parser.parseStatementListItem [as parseBlockOrModuleBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+      at Parser.parseBlockOrModuleBlockBody [as parseBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+      at Parser.parseBlockBody [as parseBlock] (node_modules/@babel/parser/src/parser/statement.ts:1385:10)
+      at Parser.parseBlock [as parseFunctionBody] (node_modules/@babel/parser/src/parser/expression.ts:2621:24)
+      at Parser.parseFunctionBody [as parseFunctionBodyAndFinish] (node_modules/@babel/parser/src/parser/expression.ts:2590:10)
+      at Parser.parseFunctionBodyAndFinish [as parseMethod] (node_modules/@babel/parser/src/parser/expression.ts:2495:31)
+      at Parser.parseMethod [as pushClassMethod] (node_modules/@babel/parser/src/parser/statement.ts:2244:12)
+      at Parser.pushClassMethod [as parseClassMemberWithIsStatic] (node_modules/@babel/parser/src/parser/statement.ts:2023:12)
+      at Parser.parseClassMemberWithIsStatic [as parseClassMember] (node_modules/@babel/parser/src/parser/statement.ts:1938:10)
+      at parseClassMember (node_modules/@babel/parser/src/parser/statement.ts:1851:14)
+      at Parser.callback [as withSmartMixTopicForbiddingContext] (node_modules/@babel/parser/src/parser/expression.ts:3171:14)
+      at Parser.withSmartMixTopicForbiddingContext [as parseClassBody] (node_modules/@babel/parser/src/parser/statement.ts:1823:10)
+      at Parser.parseClassBody [as parseClass] (node_modules/@babel/parser/src/parser/statement.ts:1774:22)
+      at Parser.parseClass [as parseStatementContent] (node_modules/@babel/parser/src/parser/statement.ts:532:21)
+      at Parser.parseStatementContent [as parseStatementLike] (node_modules/@babel/parser/src/parser/statement.ts:482:17)
+      at Parser.parseStatementLike [as parseStatementListItem] (node_modules/@babel/parser/src/parser/statement.ts:431:17)
+      at Parser.parseStatementListItem [as parseBlockOrModuleBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+      at Parser.parseBlockOrModuleBlockBody [as parseBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+      at Parser.parseBlockBody [as parseBlock] (node_modules/@babel/parser/src/parser/statement.ts:1385:10)
+      at Parser.parseBlock [as parseFunctionBody] (node_modules/@babel/parser/src/parser/expression.ts:2621:24)
+      at Parser.parseFunctionBody [as parseArrowExpression] (node_modules/@babel/parser/src/parser/expression.ts:2562:10)
+      at Parser.parseArrowExpression [as parseParenAndDistinguishExpression] (node_modules/@babel/parser/src/parser/expression.ts:1850:12)
+      at Parser.parseParenAndDistinguishExpression [as parseExprAtom] (node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+      at Parser.parseExprAtom [as parseExprSubscripts] (node_modules/@babel/parser/src/parser/expression.ts:742:23)
+      at Parser.parseExprSubscripts [as parseUpdate] (node_modules/@babel/parser/src/parser/expression.ts:721:21)
+      at Parser.parseUpdate [as parseMaybeUnary] (node_modules/@babel/parser/src/parser/expression.ts:683:23)
+      at Parser.parseMaybeUnary [as parseMaybeUnaryOrPrivate] (node_modules/@babel/parser/src/parser/expression.ts:417:14)
+      at Parser.parseMaybeUnaryOrPrivate [as parseExprOps] (node_modules/@babel/parser/src/parser/expression.ts:429:23)
+      at Parser.parseExprOps [as parseMaybeConditional] (node_modules/@babel/parser/src/parser/expression.ts:384:23)
+      at Parser.parseMaybeConditional [as parseMaybeAssign] (node_modules/@babel/parser/src/parser/expression.ts:301:21)
+      at parseMaybeAssign (node_modules/@babel/parser/src/parser/expression.ts:257:12)
+      at Parser.callback [as allowInAnd] (node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+      at Parser.allowInAnd [as parseMaybeAssignAllowIn] (node_modules/@babel/parser/src/parser/expression.ts:256:17)
+      at Parser.parseMaybeAssignAllowIn [as parseMaybeAssignAllowInOrVoidPattern] (node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+      at Parser.parseMaybeAssignAllowInOrVoidPattern [as parseExprListItem] (node_modules/@babel/parser/src/parser/expression.ts:2793:18)
+      at Parser.parseExprListItem [as parseCallExpressionArguments] (node_modules/@babel/parser/src/parser/expression.ts:1042:14)
+      at Parser.parseCallExpressionArguments [as parseCoverCallAndAsyncArrowHead] (node_modules/@babel/parser/src/parser/expression.ts:922:29)
+      at Parser.parseCoverCallAndAsyncArrowHead [as parseSubscript] (node_modules/@babel/parser/src/parser/expression.ts:804:19)
+      at Parser.parseSubscript [as parseSubscripts] (node_modules/@babel/parser/src/parser/expression.ts:763:19)
+      at Parser.parseSubscripts [as parseExprSubscripts] (node_modules/@babel/parser/src/parser/expression.ts:748:17)
+      at Parser.parseExprSubscripts [as parseUpdate] (node_modules/@babel/parser/src/parser/expression.ts:721:21)
+      at Parser.parseUpdate [as parseMaybeUnary] (node_modules/@babel/parser/src/parser/expression.ts:683:23)
+      at Parser.parseMaybeUnary [as parseMaybeUnaryOrPrivate] (node_modules/@babel/parser/src/parser/expression.ts:417:14)
+      at Parser.parseMaybeUnaryOrPrivate [as parseExprOps] (node_modules/@babel/parser/src/parser/expression.ts:429:23)
+      at Parser.parseExprOps [as parseMaybeConditional] (node_modules/@babel/parser/src/parser/expression.ts:384:23)
+      at Parser.parseMaybeConditional [as parseMaybeAssign] (node_modules/@babel/parser/src/parser/expression.ts:301:21)
+      at Parser.parseMaybeAssign [as parseExpressionBase] (node_modules/@babel/parser/src/parser/expression.ts:226:23)
+      at parseExpressionBase (node_modules/@babel/parser/src/parser/expression.ts:217:39)
+      at Parser.callback [as allowInAnd] (node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+      at Parser.allowInAnd [as parseExpression] (node_modules/@babel/parser/src/parser/expression.ts:217:17)
+      at Parser.parseExpression [as parseStatementContent] (node_modules/@babel/parser/src/parser/statement.ts:688:23)
+      at Parser.parseStatementContent [as parseStatementLike] (node_modules/@babel/parser/src/parser/statement.ts:482:17)
+      at Parser.parseStatementLike [as parseStatementListItem] (node_modules/@babel/parser/src/parser/statement.ts:431:17)
+      at Parser.parseStatementListItem [as parseBlockOrModuleBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+      at Parser.parseBlockOrModuleBlockBody [as parseBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+      at Parser.parseBlockBody [as parseBlock] (node_modules/@babel/parser/src/parser/statement.ts:1385:10)
+      at Parser.parseBlock [as parseFunctionBody] (node_modules/@babel/parser/src/parser/expression.ts:2621:24)
+      at Parser.parseFunctionBody [as parseArrowExpression] (node_modules/@babel/parser/src/parser/expression.ts:2562:10)
+      at Parser.parseArrowExpression [as parseParenAndDistinguishExpression] (node_modules/@babel/parser/src/parser/expression.ts:1850:12)
+      at Parser.parseParenAndDistinguishExpression [as parseExprAtom] (node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+      at Parser.parseExprAtom [as parseExprSubscripts] (node_modules/@babel/parser/src/parser/expression.ts:742:23)
+      at Parser.parseExprSubscripts [as parseUpdate] (node_modules/@babel/parser/src/parser/expression.ts:721:21)
+      at Parser.parseUpdate [as parseMaybeUnary] (node_modules/@babel/parser/src/parser/expression.ts:683:23)
+      at Parser.parseMaybeUnary [as parseMaybeUnaryOrPrivate] (node_modules/@babel/parser/src/parser/expression.ts:417:14)
+      at Parser.parseMaybeUnaryOrPrivate [as parseExprOps] (node_modules/@babel/parser/src/parser/expression.ts:429:23)
+      at Parser.parseExprOps [as parseMaybeConditional] (node_modules/@babel/parser/src/parser/expression.ts:384:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        0.58 s
+Ran all test suites.
