@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .add-todo {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #todoInput {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #todoInput:focus {
+            border-color: #007bff;
+        }
+
+        #addBtn {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #addBtn:hover {
+            background: #0056b3;
+        }
+
+        .counter {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .todo-list {
+            list-style: none;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        @media (max-width: 375px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .add-todo {
+                flex-direction: column;
+            }
+
+            #todoInput, #addBtn {
+                width: 100%;
+            }
+
+            .todo-item {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .todo-text {
+                font-size: 14px;
+            }
+
+            .delete-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Todo App</h1>
+        
+        <div class="add-todo">
+            <input type="text" id="todoInput" placeholder="Enter a new todo..." maxlength="200">
+            <button id="addBtn">Add</button>
+        </div>
+
+        <div class="counter" id="counter">
+            0 items remaining
+        </div>
+
+        <ul class="todo-list" id="todoList">
+            <li class="empty-state">No todos yet. Add one above!</li>
+        </ul>
+    </div>
+
+    <script>
+        class TodoApp {
+            constructor() {
+                this.todos = [];
+                this.todoInput = document.getElementById('todoInput');
+                this.addBtn = document.getElementById('addBtn');
+                this.todoList = document.getElementById('todoList');
+                this.counter = document.getElementById('counter');
+                
+                this.init();
+            }
+
+            init() {
+                this.loadTodos();
+                this.bindEvents();
+                this.render();
+            }
+
+            bindEvents() {
+                this.addBtn.addEventListener('click', () => this.addTodo());
+                this.todoInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.addTodo();
+                    }
+                });
+            }
+
+            addTodo() {
+                const text = this.todoInput.value.trim();
+                if (text === '') return;
+
+                const todo = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false
+                };
+
+                this.todos.push(todo);
+                this.todoInput.value = '';
+                this.saveTodos();
+                this.render();
+            }
+
+            toggleTodo(id) {
+                const todo = this.todos.find(t => t.id === id);
+                if (todo) {
+                    todo.completed = !todo.completed;
+                    this.saveTodos();
+                    this.render();
+                }
+            }
+
+            deleteTodo(id) {
+                this.todos = this.todos.filter(t => t.id !== id);
+                this.saveTodos();
+                this.render();
+            }
+
+            saveTodos() {
+                localStorage.setItem('todos', JSON.stringify(this.todos));
+            }
+
+            loadTodos() {
+                const stored = localStorage.getItem('todos');
+                if (stored) {
+                    try {
+                        this.todos = JSON.parse(stored);
+                    } catch (e) {
+                        this.todos = [];
+                    }
+                }
+            }
+
+            render() {
+                this.renderTodos();
+                this.renderCounter();
+            }
+
+            renderTodos() {
+                if (this.todos.length === 0) {
+                    this.todoList.innerHTML = '<li class="empty-state">No todos yet. Add one above!</li>';
+                    return;
+                }
+
+                this.todoList.innerHTML = this.todos.map(todo => `
+                    <li class="todo-item">
+                        <input 
+                            type="checkbox" 
+                            class="todo-checkbox" 
+                            ${todo.completed ? 'checked' : ''}
+                            onchange="app.toggleTodo(${todo.id})"
+                        >
+                        <span class="todo-text ${todo.completed ? 'completed' : ''}">
+                            ${this.escapeHtml(todo.text)}
+                        </span>
+                        <button class="delete-btn" onclick="app.deleteTodo(${todo.id})">
+                            Delete
+                        </button>
+                    </li>
+                `).join('');
+            }
+
+            renderCounter() {
+                const remaining = this.todos.filter(t => !t.completed).length;
+                const itemText = remaining === 1 ? 'item' : 'items';
+                this.counter.textContent = `${remaining} ${itemText} remaining`;
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize the app
+        const app = new TodoApp();
+    </script>
+</body>
+</html>
